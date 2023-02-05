@@ -12,12 +12,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform backColl;
 
     private Vector2 movement;
-    private Rigidbody2D rb;
+    private Rigidbody2D rigidbody2D;
 
     public LayerMask groundLayers;
 
     private void Start(){
-        rb = GetComponent<Rigidbody2D>();
+        rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     private void Update(){
@@ -36,15 +36,24 @@ public class PlayerMovement : MonoBehaviour
         CheckColliders();
     }
 
+    private void MoveFoward(){
+        rigidbody2D.MovePosition(rigidbody2D.position + (-(Vector2)transform.up * movement.y * maxSpeed * Time.fixedDeltaTime)); 
+    }
+
+    private void Turn(){
+        float rotate = -movement.x * turnSpeed * Time.fixedDeltaTime;
+        rigidbody2D.MoveRotation(transform.rotation * Quaternion.Euler(0, 0, rotate));
+    }
+
     private void CheckColliders(){
-        Collider2D bowCollider = Physics2D.OverlapCircle(frontColl.position, collisorRadius, groundLayers);
-        if (bowCollider!=null){
+        Collider2D frontCollider = Physics2D.OverlapCircle(frontColl.position, collisorRadius, groundLayers);
+        if (frontCollider!=null){
             movement.x = movement.x/100;
             movement.y = movement.y/100;
         }
 
-        Collider2D sternCollider = Physics2D.OverlapCircle(backColl.position, collisorRadius, groundLayers);
-        if (sternCollider!=null){
+        Collider2D backCollider = Physics2D.OverlapCircle(backColl.position, collisorRadius, groundLayers);
+        if (backCollider!=null){
             movement.x = movement.x/100;
             movement.y = movement.y/100;
         }
@@ -56,13 +65,5 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.DrawWireSphere(new Vector3(backColl.position.x, backColl.position.y, 0f), collisorRadius);
     }
 
-    private void MoveFoward(){
-        //rb.velocity = -(Vector2)transform.up * movement.y * maxSpeed * Time.fixedDeltaTime;
-        rb.MovePosition(rb.position + (-(Vector2)transform.up * movement.y * maxSpeed * Time.fixedDeltaTime)); 
-    }
-
-    private void Turn(){
-        float rotate = -movement.x * turnSpeed * Time.fixedDeltaTime;
-        rb.MoveRotation(transform.rotation * Quaternion.Euler(0, 0, rotate));
-    }
+    
 }
