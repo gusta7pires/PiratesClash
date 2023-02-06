@@ -15,6 +15,6 @@ public class Bullet : MonoBehaviour
     
     void FixedUpdate()
     {
-        rb.velocity = -(Vector2)transform.up * speed * Time.fixedDeltaTime;
+        rb.velocity = (Vector2)transform.up * speed * Time.fixedDeltaTime;
     }
 }
