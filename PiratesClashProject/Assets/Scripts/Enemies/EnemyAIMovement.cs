@@ -18,6 +18,11 @@ public class EnemyAIMovement : MonoBehaviour
 
     private void Update()
     {
+        if(!GetComponent<EnemyHealth>().Alive){
+            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            return;
+        }
+
         float distance = Vector2.Distance(target.position, transform.position);
 
         agent.SetDestination(target.position);
