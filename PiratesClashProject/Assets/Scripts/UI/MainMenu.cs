@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] private GameObject mainPanel;
     [SerializeField] private GameObject optionsPanel;
+    [SerializeField] private GameObject controlsPanel;
 
     [SerializeField] private TMP_Text SesionTimeTxt;
     [SerializeField] private TMP_Text SpawnTimeTxt;
@@ -25,6 +26,19 @@ public class MainMenu : MonoBehaviour
     public void OptionsBtn(){
         mainPanel.SetActive(false);
         optionsPanel.SetActive(true);
+        controlsPanel.SetActive(false);
+    }
+
+    public void ControlsBtn(){
+        mainPanel.SetActive(false);
+        optionsPanel.SetActive(false);
+        controlsPanel.SetActive(true);
+    }
+
+    public void GoBackMainMenu(){
+        mainPanel.SetActive(true);
+        optionsPanel.SetActive(false);
+        controlsPanel.SetActive(false);
     }
 
     public void IncreaseSesionTime(){
@@ -53,10 +67,5 @@ public class MainMenu : MonoBehaviour
             GameManager.gm.EnemySpawnTime--;
             SpawnTimeTxt.text = GameManager.gm.EnemySpawnTime.ToString();
         }
-    }
-
-    public void GoBackMainMenu(){
-        mainPanel.SetActive(true);
-        optionsPanel.SetActive(false);
     }
 }
