@@ -28,6 +28,10 @@ public class EnemySpawner : MonoBehaviour
     }
 
     private void Update(){
+        if(!GameManager.gm.Player.GetComponent<PlayerHealth>().Alive){
+            return;
+        }
+
         if(numberOfEnemies == maxEnemiesInMap)
             spawnTimer = Time.time + enemySpawnTime;
 
