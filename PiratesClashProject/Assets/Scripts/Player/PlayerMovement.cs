@@ -11,10 +11,16 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
 
     private void Start(){
+        GameManager.gm.Player = this.gameObject;
         rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update(){
+        if(!GetComponent<PlayerHealth>().Alive){
+            movement = Vector2.zero;
+            return;
+        }
+        
         PlayerInputs();
     }
 

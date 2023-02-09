@@ -9,13 +9,17 @@ public class ShooterEnemyAttack : MonoBehaviour
     [SerializeField] private float canShotDistance = 8f;
     [SerializeField] private float shotCoolDown = 1.5f;
     private float shotTimer = 0f;
+    private Transform target;
+
+    private void Start(){
+        target = GameManager.gm.Player.transform;
+    }
 
     void Update(){
-        if(!GetComponent<EnemyHealth>().Alive){
+        if(!GetComponent<EnemyHealth>().Alive || !target.GetComponent<PlayerHealth>().Alive){
             return;
         }
 
-        Transform target = PlayerManager.instance.Player.transform;
         float playerDistance = Vector2.Distance(target.position, transform.position);
 
         if(playerDistance <= canShotDistance && Time.time > shotTimer){

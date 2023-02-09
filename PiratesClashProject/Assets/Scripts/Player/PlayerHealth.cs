@@ -14,11 +14,18 @@ public class PlayerHealth : MonoBehaviour
     
     [SerializeField] private Sprite [] playerSprites;
     [SerializeField] private SpriteRenderer render;
+    [SerializeField] private HealthBar healthBar;
+    [SerializeField] private Canvas HealthBarCanvas;
 
     private void Start(){
         currentLife = maxLife;
         alive = true;
         render.sprite = playerSprites[0];
+        SetHealthBar(HealthBarCanvas);
+    }
+
+    public void SetHealthBar(Canvas canvas){
+        healthBar.transform.SetParent(canvas.transform);
     }
 
     public void LoseLife(){
@@ -28,6 +35,8 @@ public class PlayerHealth : MonoBehaviour
 
         currentLife--;
 
+        healthBar.SetProgress((float)currentLife / (float)maxLife);
+
         if(currentLife < 5){
             render.sprite = playerSprites[2];
         }else if(currentLife < 9){
@@ -36,10 +45,9 @@ public class PlayerHealth : MonoBehaviour
 
         if(currentLife <= 0){
             render.sprite = playerSprites[3];
-            ExplosionsCaller.instance.CallExplosion(this.gameObject);
+            ExplosionsCaller.instance.CallShipExplosion(this.gameObject);
             alive = false;
-            //Puxar tela de Game Over
-            Debug.Log("MORREU");
+            SessionManager.session.GameOver();
         }
     }
 }

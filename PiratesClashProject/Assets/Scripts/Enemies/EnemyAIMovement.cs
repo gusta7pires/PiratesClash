@@ -10,7 +10,7 @@ public class EnemyAIMovement : MonoBehaviour
 
     private void Start()
     {
-        target = PlayerManager.instance.Player.transform;
+        target = GameManager.gm.Player.transform;
         agent = GetComponent<NavMeshAgent>();
 		agent.updateRotation = false;
 		agent.updateUpAxis = false;
@@ -18,8 +18,7 @@ public class EnemyAIMovement : MonoBehaviour
 
     private void Update()
     {
-        if(!GetComponent<EnemyHealth>().Alive){
-            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        if(!GetComponent<EnemyHealth>().Alive || !target.GetComponent<PlayerHealth>().Alive){
             return;
         }
 

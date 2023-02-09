@@ -14,11 +14,7 @@ public class CameraController : MonoBehaviour
 
     private Vector3 velocity;
 
-    private Transform player;
-
-    void Start(){
-        player = PlayerManager.instance.Player.transform;
-    }
+    [SerializeField] private Transform player;
 
     void Update()
     {

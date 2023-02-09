@@ -18,6 +18,10 @@ public class PlayerShoot : MonoBehaviour
     
     void Update()
     {
+        if(!GetComponent<PlayerHealth>().Alive){
+            return;
+        }
+
         GameObject newBullet;
         if(Input.GetButtonDown("Fire1") && Time.time > nextFrontalShot){
             newBullet = Instantiate(bullet, frontalShootPos.position, frontalShootPos.rotation);

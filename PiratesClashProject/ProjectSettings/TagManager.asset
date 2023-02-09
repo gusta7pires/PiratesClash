@@ -54,3 +54,6 @@ TagManager:
   - name: Bullet
     uniqueID: 4279194419
     locked: 0
+  - name: UI
+    uniqueID: 295952331
+    locked: 0
